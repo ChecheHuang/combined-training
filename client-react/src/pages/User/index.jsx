@@ -4,7 +4,7 @@ function User() {
   return (
     <div>
       <aside>user</aside>
-      {/* {Outlet} */}
+      {Outlet}
     </div>
   )
 }
