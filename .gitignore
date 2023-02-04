@@ -1,0 +1,4 @@
+client-react/node_modules
+.env
+node_modules
+/public
