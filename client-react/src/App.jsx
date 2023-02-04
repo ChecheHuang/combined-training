@@ -1,53 +1,36 @@
 import {
   Outlet,
-  Routes,
-  Route,
-  BrowserRouter,
   Navigate,
-  useRoutes,
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom'
-
-function Dashboard() {
-  return (
-    <div>
-      <h1>Dashboard</h1>
-
-      {/* This element will render either <DashboardMessages> when the URL is
-          "/messages", <DashboardTasks> at "/tasks", or null if it is "/"
-      */}
-      <Outlet />
-    </div>
-  )
-}
-function Messages() {
-  return (
-    <div>
-      <h1>messages</h1>
-      <Outlet />
-    </div>
-  )
-}
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import User from './pages/User'
+import Command from './pages/User/Command'
+import Edit from './pages/User/Edit'
 
 function App() {
   const routes = [
     { path: '/', element: <Navigate to="/tasks" /> },
     {
       path: '/',
-      element: <Dashboard />,
+      element: <Home />,
       children: [
+        { path: 'login', element: <Login /> },
+        { path: 'register', element: <Register /> },
         {
-          path: 'tasks',
-          element: <div>tasks</div>,
-        },
-        {
-          path: 'messages',
-          element: <Messages />,
+          path: 'user',
+          element: <User />,
           children: [
             {
-              path: 'tasks',
-              element: <div>tasks</div>,
+              path: 'command',
+              element: <Command />,
+            },
+            {
+              path: 'edit',
+              element: <Edit />,
             },
           ],
         },

@@ -11,7 +11,7 @@ module.exports.register = async (req, res, next) => {
   }
   try {
     const { name, password } = req.body;
-    const member = await sql.execute('select * from member where  name=?', [
+    const [member] = await sql.execute('select * from member where  name=?', [
       name,
     ]);
     if (member.length > 0) return res.json({ msg: '已經註冊過了' });
@@ -21,6 +21,7 @@ module.exports.register = async (req, res, next) => {
     ]);
     res.status(200).json({ status: 'success' });
   } catch (error) {
+    console.log(error);
     next(new Error('register錯誤'));
   }
 };
