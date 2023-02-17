@@ -2,23 +2,29 @@ import React, { useRef } from 'react'
 import axios from 'axios'
 import { Input, Button } from '../../components/FormComponent'
 import { AiFillAlert } from 'react-icons/ai'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { toastOption } from '../../utils/toastOption'
+import { registerApi } from '../../utils/api'
+
 function Register() {
-  // axios
-  //   .post('/api/login', {
-  //     name: '123',
-  //     password: '123456',
-  //   })
-  //   .then((res) => {
-  //     console.log(res.data)
-  //   })
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('submit')
-    console.log(nameRef.current.value)
-  }
   const nameRef = useRef()
   const passwordRef = useRef()
   const confirmPasswordRef = useRef()
+  const navigate = useNavigate()
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const registerRes = await axios.post(registerApi, {
+      name: nameRef.current.value,
+      password: passwordRef.current.value,
+      confirmPassword: confirmPasswordRef.current.value,
+    })
+    if (registerRes.data.status === 'error') {
+      return toast.error(registerRes.data.msg, toastOption)
+    }
+    toast.success('註冊成功', toastOption)
+    navigate('/login')
+  }
 
   return (
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -56,6 +62,12 @@ function Register() {
           </div>
           <Button text="註冊" click={handleSubmit} icon={<AiFillAlert />} />
         </form>
+        <div>
+          已經有帳號了
+          <Link className=" text-blue-900 font-bold" to="/login">
+            去登入
+          </Link>
+        </div>
       </div>
     </div>
   )

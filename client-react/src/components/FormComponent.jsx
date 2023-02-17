@@ -1,19 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Input({
   label = '請輸入',
   inputRef,
   required = false,
-  text = 'text',
+  type = 'text',
 }) {
   return (
     <div>
       <label htmlFor={label} className="sr-only">
-        輸入帳號
+        {label}
       </label>
       <input
         ref={inputRef}
-        type={text}
+        type={type}
         required={required}
         className="relative block w-full appearance-none  rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm "
         placeholder={label}
